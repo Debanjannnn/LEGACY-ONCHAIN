@@ -177,14 +177,14 @@ const SkeletonFive = () => (
 const items = [
   {
     title: "Fast Transactions",
-    description: "Execute wills and distribute assets with EDU' lightning-fast 0.5 second block time.",
+    description: "Execute wills and distribute assets with PHAROS' lightning-fast 0.5 second block time.",
     header: <SkeletonOne />,
     className: "md:col-span-1",
     icon: <HelpCircle className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />,
   },
   {
     title: "Low-Cost Operations",
-    description: "Benefit from EDU' minimal transaction fees for cost-effective legacy management.",
+    description: "Benefit from PHAROS' minimal transaction fees for cost-effective legacy management.",
     header: <SkeletonTwo />,
     className: "md:col-span-1 p-6",
     icon: <BookOpen className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />,
@@ -198,7 +198,7 @@ const items = [
   },
   {
     title: "Eco-Friendly",
-    description: "Rest easy knowing your digital legacy has a minimal environmental impact on EDU.",
+    description: "Rest easy knowing your digital legacy has a minimal environmental impact on PHAROS.",
     header: <SkeletonFour />,
     className: "md:col-span-2 p-6",
     icon: <FileSearch className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />,

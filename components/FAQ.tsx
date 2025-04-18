@@ -6,22 +6,22 @@ import { AnimatedShinyText } from "./magicui/animated-shiny-text";
 
 const faqs = [
   {
-    question: "How does EDU Chain ensure my will's security?",
+    question: "How does PHAROS Chain ensure my will's security?",
     answer:
-      "EDU Chain provides immutable, transparent records of your will. Its high-speed performance and EVM compatibility ensure your wishes are securely stored and executed exactly as intended, with minimal risk of tampering or fraud.",
+      "PHAROS Chain provides immutable, transparent records of your will. Its high-speed performance and EVM compatibility ensure your wishes are securely stored and executed exactly as intended, with minimal risk of tampering or fraud.",
   },
   {
-    question: "What are the advantages of creating a will on EDU?",
+    question: "What are the advantages of creating a will on PHAROS?",
     answer:
-      "EDU offers fast transaction speeds, low costs, and eco-friendly operations. This means your will can be created, updated, and executed quickly and efficiently, with minimal environmental impact and transaction fees.",
+      "PHAROS offers fast transaction speeds, low costs, and eco-friendly operations. This means your will can be created, updated, and executed quickly and efficiently, with minimal environmental impact and transaction fees.",
   },
   {
-    question: "Can I update my will after it's been created on EDU?",
+    question: "Can I update my will after it's been created on PHAROS?",
     answer:
-      "Yes, our platform allows you to update your will at any time. Changes are recorded on the EDU Chain, ensuring a clear audit trail while maintaining the flexibility to adapt to life changes.",
+      "Yes, our platform allows you to update your will at any time. Changes are recorded on the PHAROS Chain, ensuring a clear audit trail while maintaining the flexibility to adapt to life changes.",
   },
   {
-    question: "How does asset distribution work with a EDU-based will?",
+    question: "How does asset distribution work with a PHAROS-based will?",
     answer:
       "Assets are distributed according to the conditions set in your will's smart contract. This can include time-based releases, specific event triggers, or instant distribution upon verification of certain conditions.",
   },
@@ -41,7 +41,7 @@ export default function FAQ() {
           <h2 className="text-4xl font-display mb-4 text-white">
             Frequently Asked Questions
             <br />
-            About EDU Wills
+            About PHAROS Wills
           </h2>
         </div>
         <div className="max-w-4xl mx-auto space-y-6">
