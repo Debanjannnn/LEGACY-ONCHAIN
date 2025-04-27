@@ -31,7 +31,7 @@ Losing access to private keys, seed phrases, and digital assets is a nightmare�
 ---  
 ## **Smart Contract Deployment** 🏗️  
 
-- **PHAROS Chain Testnet Contract**: [0x82d5125995ad54d9ff7f856f4a2d2273b00d8b61](https://edu-chain-testnet.blockscout.com/address/0x82d5125995ad54d9ff7f856f4a2d2273b00d8b61)
+- **PHAROS Chain Testnet Contract**: [0x835907cF097B08097C0dFa1cc90bD811c2c92548](https://pharosscan.xyz/address/0x835907cF097B08097C0dFa1cc90bD811c2c92548?tab=index)
 - **Chain**: **PHAROS Chain Testnet**  
 
 ---  
