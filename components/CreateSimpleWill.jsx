@@ -36,6 +36,7 @@ export default function CreateSimpleWill() {
   const [openDialog, setOpenDialog] = useState(false)
   const [checkingWill, setCheckingWill] = useState(true)
   const [hasWill, setHasWill] = useState(false)
+  // const [error, setError] = useState("");
 
   // Add this near the other state declarations at the top
   const [transactionHash, setTransactionHash] = useState("")
@@ -60,6 +61,7 @@ export default function CreateSimpleWill() {
     createNormalWill,
     loading,
     error,
+    setError,
     isConnected,
     hasCreatedWill,
     chainId,
@@ -77,6 +79,7 @@ export default function CreateSimpleWill() {
       setCheckingWill(true)
       try {
         const willExists = await hasCreatedWill(account)
+        console.log("WILL EXISTS?", willExists)
         setHasWill(willExists)
         if (willExists) {
           router.push('/check-my-will/simple')
@@ -95,6 +98,12 @@ export default function CreateSimpleWill() {
     checkWillStatus()  // Call the memoized function
   }, [])
 
+  useEffect(() => {
+    if (account && isConnected) {
+      checkWillStatus()
+    }
+  }, [account, isConnected, checkWillStatus])
+
   // Handle Submit Effect
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -112,7 +121,7 @@ export default function CreateSimpleWill() {
       // Add balance check
       const requiredAmount = Number(formData.amount)
       if (Number(balance) < requiredAmount) {
-        throw new Error(`Insufficient balance. You need ${requiredAmount} PHAROS but have ${Number(balance).toFixed(4)} PHAROS`)
+        throw new Error(`Insufficient balance. You need ${requiredAmount} PTT but have ${Number(balance).toFixed(4)} PTT`)
       }
 
       const success = await createNormalWill(
@@ -126,12 +135,15 @@ export default function CreateSimpleWill() {
         }
       )
 
-      if (success) {
-        setFormData({ beneficiary: "", assets: "", amount: "", claimWaitTime: "" })
-        setOpenDialog(false)
-        setConfirmationChecks(Object.keys(confirmationChecks).reduce((acc, key) => ({ ...acc, [key]: false }), {}))
-        // Maybe add a success notification here
-      }
+      // In the handleSubmit function, after successful will creation:
+if (success) {
+  setFormData({ beneficiary: "", assets: "", amount: "", claimWaitTime: "" })
+  setOpenDialog(false)
+  setConfirmationChecks(Object.keys(confirmationChecks).reduce((acc, key) => ({ ...acc, [key]: false }), {}))
+  
+  // Add this redirect after successful creation
+  router.push('/check-my-will/simple')
+}
     } catch (err) {
       console.error("Error submitting will:", err)
       setError(err.message || "Failed to create will. Please try again.")
@@ -169,7 +181,7 @@ export default function CreateSimpleWill() {
     const descriptions = {
       termsAccepted: "I accept the terms and conditions of the Educational Smart Will service",
       understandInactivity: "My academic beneficiary can only claim after 10 years of account inactivity",
-      understandFees: "A 2% service fee in PHAROS tokens will support the Open Campus ecosystem",
+      understandFees: "A 2% service fee in PTT tokens will support the Open Campus ecosystem",
       confirmBeneficiary: "The beneficiary address belongs to my chosen academic successor",
       createBackup: "I have securely backed up my wallet credentials and academic documentation",
       allowDistribution: "If unclaimed, I allow distribution to the Open Campus scholarship fund",
@@ -218,7 +230,7 @@ export default function CreateSimpleWill() {
                   {waitingForSignature ? (
                     <>
                       Please accept the MetaMask request and confirm the transaction<br />
-                      <span className="font-medium">Amount to deposit: {formData.amount} PHAROS</span>
+                      <span className="font-medium">Amount to deposit: {formData.amount} PTT</span>
                     </>
                   ) : (
                     "Waiting for the transaction to be mined..."
@@ -257,7 +269,7 @@ export default function CreateSimpleWill() {
               <p className="text-lg font-medium text-center">
                 {checkingWill
                   ? "Checking your will status..."
-                  : "Switching your network to PHAROS Chain Testnet and connecting LEGACY ONCHAIN with it. Please accept the connection request in your wallet."}
+                  : "Switching your network to Pharos Devnet and connecting LEGACY ONCHAIN with it. Please accept the connection request in your wallet."}
               </p>
               <p className="text-sm text-muted-foreground text-center">
                 This process may take a few seconds. Please be patient.
@@ -308,7 +320,7 @@ export default function CreateSimpleWill() {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Balance</p>
-              <p className="font-medium">{Number(balance).toFixed(4)} PHAROS</p>
+              <p className="font-medium">{Number(balance).toFixed(4)} PTT</p>
             </div>
           </div>
         </CardContent>
@@ -389,7 +401,7 @@ export default function CreateSimpleWill() {
 
               <div className="relative">
                 <Label htmlFor="amount" className="text-lg text-foreground flex items-center gap-2">
-                  <BookOpen className="w-4 h-4" /> Initial PHAROS Token Deposit
+                  <BookOpen className="w-4 h-4" /> Initial PTT Token Deposit
                 </Label>
                 <Input
                   type="number"
@@ -406,7 +418,7 @@ export default function CreateSimpleWill() {
                 {formData.amount && (
                   <div className="mt-2 text-sm text-muted-foreground flex items-center gap-2">
                     <Info className="w-4 h-4" />
-                    Final deposit: {(Number(formData.amount) * 0.98).toFixed(6)} PHAROS (2% supports LEGACY ONCHAIN Scholarship)
+                    Final deposit: {(Number(formData.amount) * 0.98).toFixed(6)} PTT (2% supports LEGACY ONCHAIN Scholarship)
                   </div>
                 )}
               </div>

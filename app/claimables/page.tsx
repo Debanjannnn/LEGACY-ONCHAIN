@@ -84,6 +84,7 @@ export default function Claimables() {
 
     try {
       setClaiming(true)
+     await claimNormalWill(owner)
       setError(null)
     } catch (err: any) {
       console.error("Error during claim:", err)
@@ -197,7 +198,7 @@ export default function Claimables() {
                       </CardDescription>
                     </div>
                     <div className="text-right">
-                      <div className="font-bold text-lg">{claimable.amount} EDU</div>
+                      <div className="font-bold text-lg">{claimable.amount} PTT</div>
                       <CardDescription className="text-gray-400">Token Amount</CardDescription>
                     </div>
                   </div>

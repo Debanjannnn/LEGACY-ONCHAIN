@@ -7,17 +7,17 @@ import CONTRACT_ABI from "@/abi"
 
 const SmartWillContext = createContext()
 
-// EDU Chain Testnet Configuration
-const EDU_CHAIN_CONFIG = {
-  chainId: "0xa045c", // 656476 in hex
-  chainName: "EDU Chain Testnet",
+// Pharos Devnet Configuration
+const PHAROS_DEVNET_CONFIG = {
+  chainId: "0xc352", // 50002 in hex
+  chainName: "Pharos Devnet",
   nativeCurrency: {
-    name: "EDU",
-    symbol: "EDU",
+    name: "Pharos",
+    symbol: "DPLS",
     decimals: 18,
   },
-  rpcUrls: ["wss://open-campus-codex-sepolia.drpc.org"],
-  blockExplorerUrls: ["https://edu-chain-testnet.blockscout.com/"],
+  rpcUrls: ["https://devnet.dplabs-internal.com/"],
+  blockExplorerUrls: ["https://docs.pharosnetwork.xyz/"],
 }
 
 export function SmartWillProvider({ children }) {
@@ -39,15 +39,15 @@ export function SmartWillProvider({ children }) {
     }
   }, [])
 
-  // Switch to EDU Chain Testnet
-  async function switchToEDUChain() {
+  // Switch to Pharos Devnet
+  async function switchToPharosDevnet() {
     if (!window.ethereum) return false
 
     try {
-      // Try to switch to the EDU Chain
+      // Try to switch to the Pharos Devnet
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: EDU_CHAIN_CONFIG.chainId }],
+        params: [{ chainId: PHAROS_DEVNET_CONFIG.chainId }],
       })
       return true
     } catch (switchError) {
@@ -56,17 +56,17 @@ export function SmartWillProvider({ children }) {
         try {
           await window.ethereum.request({
             method: "wallet_addEthereumChain",
-            params: [EDU_CHAIN_CONFIG],
+            params: [PHAROS_DEVNET_CONFIG],
           })
           return true
         } catch (addError) {
-          console.error("Error adding EDU Chain:", addError)
-          setError("Failed to add EDU Chain to MetaMask. Please try again.")
+          console.error("Error adding Pharos Devnet:", addError)
+          setError("Failed to add Pharos Devnet to MetaMask. Please try again.")
           return false
         }
       }
-      console.error("Error switching to EDU Chain:", switchError)
-      setError("Failed to switch to EDU Chain. Please try again.")
+      console.error("Error switching to Pharos Devnet:", switchError)
+      setError("Failed to switch to Pharos Devnet. Please try again.")
       return false
     }
   }
@@ -78,10 +78,10 @@ export function SmartWillProvider({ children }) {
         setLoading(true)
         setError(null)
 
-        // First, try to switch to EDU Chain
-        const switched = await switchToEDUChain()
+        // First, try to switch to Pharos Devnet
+        const switched = await switchToPharosDevnet()
         if (!switched) {
-          throw new Error("Failed to switch to EDU Chain")
+          throw new Error("Failed to switch to Pharos Devnet")
         }
 
         const providerInstance = new ethers.BrowserProvider(window.ethereum)
@@ -93,8 +93,8 @@ export function SmartWillProvider({ children }) {
         ])
 
         // Verify we're on the correct network
-        if (network.chainId !== BigInt(EDU_CHAIN_CONFIG.chainId)) {
-          throw new Error("Please switch to EDU Chain Testnet")
+        if (network.chainId !== BigInt(PHAROS_DEVNET_CONFIG.chainId)) {
+          throw new Error("Please switch to Pharos Devnet")
         }
 
         const balance = await providerInstance.getBalance(accounts[0])
@@ -127,8 +127,8 @@ export function SmartWillProvider({ children }) {
       }
 
       // Verify network before proceeding
-      if (chainId !== EDU_CHAIN_CONFIG.chainId) {
-        await switchToEDUChain()
+      if (chainId !== PHAROS_DEVNET_CONFIG.chainId) {
+        await switchToPharosDevnet()
       }
 
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -152,7 +152,7 @@ export function SmartWillProvider({ children }) {
     } finally {
       setLoading(false)
     }
-}
+  }
 
 
   // Get normal will by owner address
@@ -166,8 +166,8 @@ export function SmartWillProvider({ children }) {
       }
 
       // Verify network before proceeding
-      if (chainId !== EDU_CHAIN_CONFIG.chainId) {
-        await switchToEDUChain()
+      if (chainId !== PHAROS_DEVNET_CONFIG.chainId) {
+        await switchToPharosDevnet()
       }
 
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -191,14 +191,14 @@ export function SmartWillProvider({ children }) {
       if (!account) return false
 
       // Verify network before proceeding
-      if (chainId !== EDU_CHAIN_CONFIG.chainId) {
-        await switchToEDUChain()
+      if (chainId !== PHAROS_DEVNET_CONFIG.chainId) {
+        await switchToPharosDevnet()
       }
 
       const provider = new ethers.BrowserProvider(window.ethereum)
       const signer = await provider.getSigner()
       const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer)
-
+      console.log("HAS NORMAL WILL: ", await contract.hasNormalWill(account))
       return await contract.hasNormalWill(account)
     } catch (error) {
       console.error("Error checking will existence:", error)
@@ -217,8 +217,8 @@ export function SmartWillProvider({ children }) {
       }
 
       // Verify network before proceeding
-      if (chainId !== EDU_CHAIN_CONFIG.chainId) {
-        await switchToEDUChain()
+      if (chainId !== PHAROS_DEVNET_CONFIG.chainId) {
+        await switchToPharosDevnet()
       }
 
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -248,8 +248,8 @@ export function SmartWillProvider({ children }) {
       }
 
       // Verify network before proceeding
-      if (chainId !== EDU_CHAIN_CONFIG.chainId) {
-        await switchToEDUChain()
+      if (chainId !== PHAROS_DEVNET_CONFIG.chainId) {
+        await switchToPharosDevnet()
       }
 
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -280,8 +280,8 @@ export function SmartWillProvider({ children }) {
       }
 
       // Verify network before proceeding
-      if (chainId !== EDU_CHAIN_CONFIG.chainId) {
-        await switchToEDUChain()
+      if (chainId !== PHAROS_DEVNET_CONFIG.chainId) {
+        await switchToPharosDevnet()
       }
 
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -314,8 +314,8 @@ export function SmartWillProvider({ children }) {
       }
 
       // Verify network before proceeding
-      if (chainId !== EDU_CHAIN_CONFIG.chainId) {
-        await switchToEDUChain()
+      if (chainId !== PHAROS_DEVNET_CONFIG.chainId) {
+        await switchToPharosDevnet()
       }
 
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -351,8 +351,8 @@ export function SmartWillProvider({ children }) {
       }
 
       // Verify network before proceeding
-      if (chainId !== EDU_CHAIN_CONFIG.chainId) {
-        await switchToEDUChain()
+      if (chainId !== PHAROS_DEVNET_CONFIG.chainId) {
+        await switchToPharosDevnet()
       }
 
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -382,8 +382,8 @@ export function SmartWillProvider({ children }) {
       }
 
       // Verify network before proceeding
-      if (chainId !== EDU_CHAIN_CONFIG.chainId) {
-        await switchToEDUChain()
+      if (chainId !== PHAROS_DEVNET_CONFIG.chainId) {
+        await switchToPharosDevnet()
       }
 
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -414,12 +414,14 @@ export function SmartWillProvider({ children }) {
     getNormalWill,
     hasCreatedWill,
     ping,
+    
     depositNormalWill,
-    switchToEDUChain,
+    switchToPharosDevnet,
     getNormalWillsAsBeneficiary,
     getMilestoneWillsAsBeneficiary,
     claimNormalWill,
     claimMilestoneWill,
+    setError
   }
 
   return <SmartWillContext.Provider value={value}>{children}</SmartWillContext.Provider>

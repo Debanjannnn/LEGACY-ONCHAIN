@@ -44,7 +44,7 @@ export default function Hero() {
           <span className="bg-clip-text font-poppins ">
             Secure Your Legacy
             <br />
-            On PHAROS Chain
+            On Pharos
           </span>
         </motion.h1>
 
@@ -95,7 +95,7 @@ export default function Hero() {
               )}
             >
               We&apos;re live on the testnet! Some features are still being refined—your feedback is welcome. <br />
-              Join us in testing and grab some free <Link href="https://www.hackquest.io/faucets/656476">PHAROS Tokens</Link> to get started.
+              Join us in testing and grab some free <Link href="https://www.hackquest.io/faucets/50002">PTT Tokens</Link> to get started.
             </span>
             <ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
           </AnimatedGradientText>
